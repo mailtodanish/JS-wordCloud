@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+
+</head>
+
+<body>
+    <div id="my_dataviz"></div>
+
+    <script>
+
+        // List of words
+        var myWords = [
+            { word: "Running", size: "10", count: 38 },
+            { word: "Surfing1", size: "20", count: 28 },
+            { word: "Climbing2", size: "10", count: 38 },
+            { word: "Kiting3", size: "10", count: 38 },
+            { word: "Sailing4", size: "10", count: 18 },
+            { word: "Snowboarding5", size: "10", count: 38 },
+            { word: "Running6", size: "10", count: 38 },
+            { word: "Surfing7", size: "10", count: 18 },
+            { word: "Sailing8", size: "10", count: 18 },
+            { word: "Snowboarding9", size: "10", count: 38 },
+            { word: "Running10", size: "10", count: 38 },
+            { word: "Running6", size: "10", count: 38 },
+            { word: "Surfing7", size: "10", count: 18 },
+            { word: "Sailing8", size: "50", count: 18 },
+            { word: "Snowboarding9", size: "10", count: 38 },
+            { word: "Running10", size: "10", count: 38 },
+            { word: "Running6", size: "20", count: 38 },
+            { word: "Surfing7", size: "10", count: 18 },
+            { word: "Sailing8", size: "10", count: 18 },
+            { word: "Snowboarding9", size: "10", count: 38 },
+            { word: "Running10", size: "10", count: 38 },
+            { word: "Surfing11", size: "10", count: 18 }]
+        var color = d3.scaleOrdinal(d3.schemeCategory10);
+        // set the dimensions and margins of the graph
+        var margin = { top: 10, right: 10, bottom: 10, left: 10 },
+            width = 350 - margin.left - margin.right,
+            height = 150 - margin.top - margin.bottom;
+
+        // var size = d3.scaleLinear().range([0, 13]).domain([0, d3.max(myWords, d => d.count)]);
+
+        // append the svg object to the body of the page
+        var svg = d3.select("#my_dataviz").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+
+        var layout = d3.layout.cloud()
+            .size([width, height])
+            .words(myWords.map(function (d) { return { text: d.word, size: (d.size) }; }))
+            .padding(2)        //space between words
+            .rotate(function () { return ~~(Math.random() * 2) * 90; })
+            // .rotate(function () { return ~~(0 * 2) * 90; })
+            .fontSize(function (d) { return d.size; })      // font size of words
+            .on("end", draw);
+        layout.start();
+
+
+        function draw(words) {
+            svg
+                .append("g")
+                .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+                .selectAll("text")
+                .data(words)
+                .enter().append("text")
+                .style("font-size", function (d) { return d.size; })
+                .style("fill", function (d) { return color(d.text.toLowerCase()); })
+                .attr("text-anchor", "middle")
+                .style("font-family", "Impact")
+                .attr("transform", function (d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .text(function (d) { return d.text; }).on("click", function (d) {
+                    alert(d.text);
+                });;
+        }
+    </script>
+
+</body>
+
+</html>
