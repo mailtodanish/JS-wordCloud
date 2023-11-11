@@ -9,7 +9,25 @@
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js"></script>
+  <style>
+    .fieldset {
+  position: relative;
+  border: 1px solid rgb(31, 119, 180);;
+  padding: 2px;
+}
 
+.fieldset h2 {
+    position: absolute;
+    top: 0;
+    font-size: 12px;
+    line-height: 1;
+    margin: -9px 0 0;
+    background: #fff;
+    padding: 0 2px;
+    color: rgb(31, 119, 180);
+    font-family: fantasy;
+}
+  </style>
 </head>
 
 <body>
@@ -19,13 +37,13 @@
 
         // List of words
         var myWords = [
-            { word: "Full-Extract", size: "10", count: 38 },
-            { word: "Oracle-Field-Service-Cloud", size: "15", count: 28 },
-            { word: "activities", size: "10", count: 38 },
-            { word: "resource", size: "10", count: 38 },
-            { word: "Inventories", size: "10", count: 38 },
-            { word: "Customer-Inv", size: "10", count: 38 },
-            { word: "data-labyrinth", size: "15", count: 18 },
+            { word: "Oracle-Field-Service", size: "15", count: 38 },
+            { word: "Subscription", size: "15", count: 28 },
+            { word: "Events", size: "10", count: 38 },
+            { word: "Audit-Trail", size: "10", count: 38 },
+            { word: "Since", size: "10", count: 38 },
+            { word: "Get-Events", size: "10", count: 38 },           
+            { word: "OFSC", size: "15", count: 18 },
             ]
         var color = d3.scaleOrdinal(d3.schemeCategory10);
         // set the dimensions and margins of the graph
@@ -73,6 +91,17 @@
                 });;
         }
     </script>
+
+<section class="fieldset">
+    <h2>Takeaway</h2>
+    <p style="
+    padding: 0;
+    margin: 1px;
+    font-size: x-small;
+    color: gray;
+    font-family: cursive;
+">We can easily implement an Audit Trail in OFSC by using Subscription Events.</p>
+  </section>
 
 </body>
 
